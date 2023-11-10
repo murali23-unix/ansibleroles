@@ -1,0 +1,33 @@
+---
+
+- name: Install The "{{ software_name }}" package
+
+  yum:
+
+    name: "{{ pkg_name }}"
+
+    state: present
+
+
+
+- name: Copy a file for the content
+
+  copy:
+
+    src: vkm.html
+
+    dest: "{{ location }}"
+
+
+
+- name: writing a content
+
+  copy:
+
+    content: "Hello From Ansible Galaxy Role!!"
+
+    dest: "{{ location }}/index.html"
+
+  notify: Restart service
+
+
