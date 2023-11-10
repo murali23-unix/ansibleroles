@@ -1,0 +1,41 @@
+---
+
+- name: For Installing Apache Server
+
+  hosts: all
+
+  tasks:
+
+  - name: Install Apache
+
+    ansible.builtin.yum:
+
+     name: httpd
+
+     state: latest
+     
+  - name: copy index.html file
+
+    copy:
+
+     content: "Hello - Updating index.html and checking handler"
+
+     dest: /var/www/html/index.html
+     
+    notify: start-service  
+
+  handlers:
+
+
+  - name: Start the httpd process
+
+    ansible.builtin.service:
+      name: httpd
+      state: started
+      listen: start-service
+
+  - name: print msg
+    debug:
+     msg: "Service is started"
+    listen: start-service    
+
